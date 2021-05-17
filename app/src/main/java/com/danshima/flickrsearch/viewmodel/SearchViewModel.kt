@@ -25,10 +25,11 @@ class SearchViewModel : ViewModel() {
             try {
                 val searchResponse = api.fetchPhotos(BuildConfig.API_KEY, searchInput)
                 val photosList = searchResponse.photos.photo.map { photo ->
+                    val title = if (photo.title.isEmpty()) "No image name" else photo.title
                     Image(
                         id = photo.id,
                         url = "https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg",
-                        title = photo.title
+                        title = title
                     )
                 }
 
