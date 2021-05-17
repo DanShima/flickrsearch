@@ -17,13 +17,13 @@ class SearchViewModel : ViewModel() {
         private set
 
     init {
-        fetchImages()
+        fetchImages("okonomiyaki")
     }
 
-    private fun fetchImages() {
+    fun fetchImages(searchInput: String) {
         viewModelScope.launch {
             try {
-                val searchResponse = api.fetchPhotos(BuildConfig.API_KEY)
+                val searchResponse = api.fetchPhotos(BuildConfig.API_KEY, searchInput)
                 val photosList = searchResponse.photos.photo.map { photo ->
                     Image(
                         id = photo.id,

@@ -1,4 +1,4 @@
-package com.danshima.flickrsearch
+package com.danshima.flickrsearch.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
