@@ -3,6 +3,7 @@ package com.danshima.flickrsearch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.ImeAction
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,6 +41,7 @@ class MainActivity : ComponentActivity() {
     }
 
 
+    @ExperimentalAnimationApi
     @Composable
     fun Overview() {
         Scaffold(
@@ -101,6 +104,7 @@ class MainActivity : ComponentActivity() {
 
 
 
+    @ExperimentalAnimationApi
     @Composable
     fun ShowImageList(
         viewModel: SearchViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
@@ -117,6 +121,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @ExperimentalAnimationApi
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
