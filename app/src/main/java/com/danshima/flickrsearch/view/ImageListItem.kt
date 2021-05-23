@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.danshima.flickrsearch.model.Image
+import com.danshima.flickrsearch.ui.theme.imageCardBackgroundLight
 import com.google.accompanist.glide.rememberGlidePainter
 
 
@@ -31,7 +32,7 @@ fun ListItem(item: Image) {
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .fillMaxWidth(),
         elevation = 4.dp,
-        backgroundColor = Color.White,
+        backgroundColor = MaterialTheme.colors.background,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {
         var expanded by remember { mutableStateOf(false) }
@@ -52,7 +53,7 @@ fun ListItem(item: Image) {
                     .fillMaxHeight()
                     .align(Alignment.CenterVertically)
             ) {
-                Text(text = item.title, style = MaterialTheme.typography.h6)
+                Text(text = item.title, style = MaterialTheme.typography.h6, color = MaterialTheme.colors.onBackground)
                 AnimatedVisibility(visible = expanded) {
                     Text(
                         text = "nice eh?",
