@@ -3,16 +3,15 @@ package com.danshima.flickrsearch.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.danshima.flickrsearch.BuildConfig
 import com.danshima.flickrsearch.model.Image
-import com.danshima.flickrsearch.network.SearchApiService
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.danshima.flickrsearch.repository.SearchRepository
 
-class SearchViewModel : ViewModel() {
-    private val api = SearchApiService.searchService
+class SearchViewModel: ViewModel() {
+    private val repository = SearchRepository()
     var images: List<Image> by mutableStateOf(listOf())
         private set
 
@@ -22,8 +21,9 @@ class SearchViewModel : ViewModel() {
 
     fun fetchImages(searchInput: String) {
         viewModelScope.launch {
-            try {
-                val searchResponse = api.fetchPhotos(BuildConfig.API_KEY, searchInput)
+            runCatching {
+                repository.fetchImages(searchInput)
+            }.onSuccess { searchResponse ->
                 val photosList = searchResponse.photos.photo.map { photo ->
                     val title = if (photo.title.isEmpty()) "No image name" else photo.title
                     Image(
@@ -32,10 +32,8 @@ class SearchViewModel : ViewModel() {
                         title = title
                     )
                 }
-
                 images = photosList
-                Log.d("images", "images $photosList ${images.size}")
-            } catch (e: Exception) {
+            }.onFailure { e ->
                 Log.d("ViewModel:Fetch Images", e.toString())
             }
         }
